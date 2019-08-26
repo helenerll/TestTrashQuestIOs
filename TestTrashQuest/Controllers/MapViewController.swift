@@ -11,24 +11,24 @@ import Firebase
 
 class MapViewController: UIViewController {
 
-    var ref : DatabaseReference!
-    var db : Firestore?
+    
     
     
     var currentUser : User!
     
     var userEmail = String()
 
+    @IBOutlet weak var labelTest: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        ref = Database.database().reference()
-        db = Firestore.firestore()
+        
 
         // Do any additional setup after loading the view.
         
+        //print("useremail \(userEmail)")
         
-            getCurrentUser(email: userEmail)
+            //getCurrentUser(email: userEmail)
             //helloLabel.text = "Hello \(currentUser.name)"
         
         }
@@ -58,29 +58,7 @@ class MapViewController: UIViewController {
         }
     }
     
-    func getCurrentUser(email: String) {
-        print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
-        db?.collection("user").whereField("email", isEqualTo: email).getDocuments() { (querySnapshot, error) in
-            if let doc = querySnapshot?.documents.first {
-                print("aaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-                guard let name = doc["name"] as? String else {
-                    print("error handling firebase")
-                    return
-                }
-                let userName = name
-                //self.currentUser.name = name
-                let userMail = doc["email"] as? String ?? ""
-                //self.currentUser.email =
-                //self.currentUser.badge =
-                let userBadges = doc["badges"] as? [String] ?? [""]
-                let user = User(name: userName, email: userMail, badge: userBadges)
-                print("est-ce que ça fonctionne putain ??????????????")
-                print(user)
-                self.currentUser = user
-                //return user
-            }
-        }
-    }
+    
     
 //    func renvoiUser(user: User) -> User {
 //

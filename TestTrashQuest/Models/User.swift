@@ -11,8 +11,9 @@ import Foundation
 struct User {
     var name: String
     var email: String
-    var badge: [String]
-
+    var badge: String
+    var imageProfileURL : String
+    var nbCollect : Int
 }
 
 enum Badge {
