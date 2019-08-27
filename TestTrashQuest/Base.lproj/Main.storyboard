@@ -580,6 +580,9 @@
                                     <constraint firstAttribute="height" constant="50" id="rdr-h5-hht"/>
                                 </constraints>
                                 <state key="normal" image="plus_png"/>
+                                <connections>
+                                    <action selector="addCollectButton:" destination="SXe-IV-UFg" eventType="touchUpInside" id="zr2-Mw-irj"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -619,9 +622,16 @@
                         <viewLayoutGuide key="safeArea" id="SNp-Pu-xt5"/>
                     </view>
                     <connections>
+                        <outlet property="cityTextField" destination="rWX-lr-AJH" id="fxu-IZ-7sd"/>
+                        <outlet property="commentTextField" destination="k1t-e9-qTV" id="Rb5-hU-pIn"/>
                         <outlet property="dateTextField" destination="5mA-ol-c9T" id="5cb-ZH-eVJ"/>
                         <outlet property="privateLabel" destination="HSA-PA-0VG" id="27F-fg-7eb"/>
-                        <outlet property="typeTextField" destination="lWr-r9-kNp" id="eXc-Gn-cn7"/>
+                        <outlet property="privateSwitch" destination="jey-G2-B2q" id="Mde-G1-Crt"/>
+                        <outlet property="streetNumberTextField" destination="Ohy-NC-abA" id="4qf-73-Pgz"/>
+                        <outlet property="streetTextField" destination="LC1-Gy-uhf" id="oSt-TB-Wv9"/>
+                        <outlet property="titleTextField" destination="s0D-Om-S8X" id="oid-Iq-BIb"/>
+                        <outlet property="typeTextField" destination="lWr-r9-kNp" id="Jkj-Kc-X15"/>
+                        <outlet property="zipcodeTextField" destination="tu9-IQ-XbO" id="Wgq-Zh-Caw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kf1-my-OiW" userLabel="First Responder" sceneMemberID="firstResponder"/>
