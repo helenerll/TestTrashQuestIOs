@@ -1,0 +1,6 @@
+framework module Pods_TestTrashQuestUITests {
+  umbrella header "Pods-TestTrashQuestUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
