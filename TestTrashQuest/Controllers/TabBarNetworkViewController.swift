@@ -17,6 +17,7 @@ class TabBarNetworkViewController: UITabBarController, UITabBarControllerDelegat
     
     var mail = String()
     var currentUser : User!
+    var profilePicture: UIImage!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,8 +25,8 @@ class TabBarNetworkViewController: UITabBarController, UITabBarControllerDelegat
         ref = Database.database().reference()
         db = Firestore.firestore()
         
-        self.delegate = self
-        
+       self.delegate = self
+
         print("balbalablablabalba", mail)
         getCurrentUser(email: mail)
 
@@ -56,19 +57,71 @@ class TabBarNetworkViewController: UITabBarController, UITabBarControllerDelegat
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         print("passage par tabbarcontroller")
         let newIndex = tabBarController.selectedIndex
+        print(newIndex)
         switch newIndex {
         case 0:
             if let map = viewController as? MapViewController {
+                print("passe par mapview")
                 map.labelTest.text = currentUser.name
                 break
             }
         case 1:
             if let profile = viewController as? ProfileViewController {
+                
+//                let storRef = Storage.storage().reference(forURL: currentUser.imageProfileURL)
+//                storRef.getData(maxSize: (1 * 2048 * 2048)) {(data, error) in
+//                    if let error = error {
+//                        print("Erreur récupération image = \(error)")
+//                    }
+//                    else if let data = data {
+//                        let myImage: UIImage! = UIImage(data: data)
+//                        print(myImage)
+//                        profile.profilePicture.image = myImage!
+//                    }
+//                }
+                getProfilePicture(picture: currentUser.imageProfileURL)
+                profile.profilePicture.image = profilePicture
                 profile.nameLabel.text! = currentUser.name
                 profile.levelLabel.text! = currentUser.badge
+                let badge = getBadge(badge: currentUser.badge)
+                profile.badgePicture.image = badge
             }
         default:
             break
+        }
+    }
+    
+    
+    func getBadge(badge: String) -> UIImage? {
+        var currentUserBadge = UIImage()
+        switch badge {
+        case "debutant":
+            if let seed = UIImage(named: "seed") {currentUserBadge = seed}
+        case "talented":
+            if let sprout = UIImage(named: "sprout") {currentUserBadge = sprout}
+        case "intermediate":
+            if let plant = UIImage(named: "plant") {currentUserBadge = plant}
+        case "experienced":
+            if let shrub = UIImage(named: "shrub") {currentUserBadge = shrub}
+        case "expert":
+            if let tree = UIImage(named: "tree") {currentUserBadge = tree}
+        default:
+            break
+        }
+        return currentUserBadge
+    }
+    
+    func getProfilePicture(picture: String) {
+        let storRef = Storage.storage().reference(forURL: picture)
+        storRef.getData(maxSize: (1 * 2048 * 2048)) {(data, error) in
+            if let error = error {
+                print("Erreur récupération image = \(error)")
+            }
+            else if let data = data {
+                let myImage: UIImage! = UIImage(data: data)
+                print(myImage)
+                self.profilePicture = myImage
+            }
         }
     }
     /*
