@@ -388,6 +388,32 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="UUn-d2-oXf">
                                 <rect key="frame" x="20" y="302" width="374" height="441"/>
                                 <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CollectCell" textLabel="AK0-lA-nq4" detailTextLabel="Ihw-EI-epm" style="IBUITableViewCellStyleSubtitle" id="hxJ-Bo-8aB">
+                                        <rect key="frame" x="0.0" y="28" width="374" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hxJ-Bo-8aB" id="gB8-hk-nHW">
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="AK0-lA-nq4">
+                                                    <rect key="frame" x="20" y="5" width="33.5" height="20.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ihw-EI-epm">
+                                                    <rect key="frame" x="20" y="25.5" width="44" height="14.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CGK-Lr-gXn">
                                 <rect key="frame" x="344" y="758" width="50" height="50"/>
@@ -440,6 +466,7 @@
                         <outlet property="levelLabel" destination="qWM-ey-m3w" id="gz1-UV-Tz3"/>
                         <outlet property="nameLabel" destination="Y2s-ZT-1fu" id="ZHy-Ih-99X"/>
                         <outlet property="profilePicture" destination="WsZ-4Q-gh6" id="Vct-fn-UoA"/>
+                        <outlet property="tableView" destination="UUn-d2-oXf" id="arD-Hd-p1Z"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4cS-Fc-hAt" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -468,7 +495,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add a new quest" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cAQ-Zj-9UM">
-                                <rect key="frame" x="91.5" y="69" width="231" height="57"/>
+                                <rect key="frame" x="92" y="69" width="230.5" height="57"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="57" id="9wC-Qd-65S"/>
                                 </constraints>
@@ -632,6 +659,7 @@
                         <outlet property="titleTextField" destination="s0D-Om-S8X" id="oid-Iq-BIb"/>
                         <outlet property="typeTextField" destination="lWr-r9-kNp" id="Jkj-Kc-X15"/>
                         <outlet property="zipcodeTextField" destination="tu9-IQ-XbO" id="Wgq-Zh-Caw"/>
+                        <segue destination="otA-xd-C6O" kind="show" identifier="goToTabBarController" id="KaA-C5-CHT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kf1-my-OiW" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -652,4 +680,8 @@
         <image name="profile" width="25" height="25"/>
         <image name="title_head" width="692" height="213"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="XYY-YZ-ZVU"/>
+        <segue reference="KaA-C5-CHT"/>
+    </inferredMetricsTieBreakers>
 </document>

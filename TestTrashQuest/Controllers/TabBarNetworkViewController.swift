@@ -18,6 +18,7 @@ class TabBarNetworkViewController: UITabBarController, UITabBarControllerDelegat
     var mail = String()
     var currentUser : User!
     var profilePicture: UIImage!
+    var collects = [Collect]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +29,13 @@ class TabBarNetworkViewController: UITabBarController, UITabBarControllerDelegat
        self.delegate = self
 
         print("balbalablablabalba", mail)
-        getCurrentUser(email: mail)
+        print("\(User.currentUser.name)")
+        
+        if User.currentUser.name == nil {
+            getCurrentUser(email: mail)
+            print("passage par méthode")
+        }
+        
 
     }
     
@@ -48,7 +55,7 @@ class TabBarNetworkViewController: UITabBarController, UITabBarControllerDelegat
                 if let nbCollect = userNbCollect {
                     let user = User(name: userName, email: userMail, badge: userBadge, imageProfileURL: userImageProfileURL, nbCollect: nbCollect)
                     print(user)
-                    self.currentUser = user
+                    User.currentUser = user
                 }
             }
         }
@@ -62,29 +69,45 @@ class TabBarNetworkViewController: UITabBarController, UITabBarControllerDelegat
         case 0:
             if let map = viewController as? MapViewController {
                 print("passe par mapview")
-                map.labelTest.text = currentUser.name
+                print("username + \(User.currentUser.name)")
+                map.labelTest.text = User.currentUser.name
                 break
             }
         case 1:
+            
             if let profile = viewController as? ProfileViewController {
                 
-//                let storRef = Storage.storage().reference(forURL: currentUser.imageProfileURL)
-//                storRef.getData(maxSize: (1 * 2048 * 2048)) {(data, error) in
-//                    if let error = error {
-//                        print("Erreur récupération image = \(error)")
-//                    }
-//                    else if let data = data {
-//                        let myImage: UIImage! = UIImage(data: data)
-//                        print(myImage)
-//                        profile.profilePicture.image = myImage!
-//                    }
-//                }
-                getProfilePicture(picture: currentUser.imageProfileURL)
-                profile.profilePicture.image = profilePicture
-                profile.nameLabel.text! = currentUser.name
-                profile.levelLabel.text! = currentUser.badge
-                let badge = getBadge(badge: currentUser.badge)
-                profile.badgePicture.image = badge
+                db?.collection("quest").whereField("organizer", isEqualTo: User.currentUser.name).getDocuments { (querySnapshot, error) in
+                    if let error = error {
+                        print("no quest for user \(User.currentUser.name) + \(error)")
+                    }
+                    else if let querySnapshot = querySnapshot {
+                        for document in querySnapshot.documents {
+                            let data = document.data()
+                            let jsonData = try? JSONSerialization.data(withJSONObject: data, options: .prettyPrinted)
+                            if let jsonData = jsonData {
+                                let decoder = JSONDecoder()
+                                let quest = try? decoder.decode(Collect.self, from: jsonData)
+                                guard let myQuest = quest else {return}
+                                    self.collects.append(myQuest)
+                                    print("\(self.collects)")
+                                    profile.collects = self.collects
+                                if let profilePic = User.currentUser.imageProfileURL, let name = User.currentUser.name, let userBadge = User.currentUser.badge {
+                                    self.getProfilePicture(picture: profilePic)
+                                    profile.profilePicture.image = self.profilePicture
+                                    profile.nameLabel.text! = name
+                                    profile.levelLabel.text! = userBadge
+                                    let badge = self.getBadge(badge: userBadge)
+                                    profile.badgePicture.image = badge
+                                    //profile.collects = collects
+                                }
+                                }
+                            
+                        }
+                    }
+                }
+                
+                
             }
         default:
             break
@@ -123,6 +146,27 @@ class TabBarNetworkViewController: UITabBarController, UITabBarControllerDelegat
                 self.profilePicture = myImage
             }
         }
+    }
+    
+    func getCollectList() {
+//        db?.collection("quest").whereField("organizer", isEqualTo: User.currentUser.name).getDocuments { (querySnapshot, error) in
+//            if let error = error {
+//                print("no quest for user \(User.currentUser.name) + \(error)")
+//            }
+//            else if let querySnapshot = querySnapshot {
+//                for document in querySnapshot.documents {
+//                    let data = document.data()
+//                    let jsonData = try? JSONSerialization.data(withJSONObject: data, options: .prettyPrinted)
+//                    if let jsonData = jsonData {
+//                        let decoder = JSONDecoder()
+//                        let quest = try? decoder.decode(Collect.self, from: jsonData)
+//                        guard let myQuest = quest else {return}
+//                        self.collects?.append(myQuest)
+//                        print("\(myQuest)") }
+//                    }
+//            }
+//        }
+        //print("collectes for current user \(self.collects)")
     }
     /*
     // MARK: - Navigation

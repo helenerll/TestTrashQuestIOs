@@ -8,16 +8,24 @@
 
 import Foundation
 
-struct User {
-    var name: String
-    var email: String
-    var badge: String
-    var imageProfileURL : String
-    var nbCollect : Int
-}
-
-enum Badge {
-    case debutant, middle, confirmed, expert
+class User {
+    var name: String?
+    var email: String?
+    var badge: String?
+    var imageProfileURL : String?
+    var nbCollect : Int?
+    
+    private init(){}
+    
+    init(name: String, email: String, badge: String, imageProfileURL: String, nbCollect: Int) {
+        self.name = name
+        self.email = email
+        self.badge = badge
+        self.imageProfileURL = imageProfileURL
+        self.nbCollect = nbCollect
+    }
+    
+    static var currentUser = User()
 }
 
 

@@ -115,13 +115,15 @@ class AddQuestViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         let collectComment = commentTextField.text
         let collectPrivat = getPrivateValue()
         if let collectTitle = collectTitle, let collectType = collectType, let collectDate = collectDate, let collectStreetNumber = collectStreetNumber, let collectStreetName = collectStreetName, let collectZipcode = collectZipcode, let collectCity = collectCity {
-            let postData: [String: Any?] = ["title": collectTitle, "type": collectType, "date": collectDate, "streetNumber": collectStreetNumber, "streetName": collectStreetName, "zipcode": collectZipcode, "city": collectCity, "comment": collectComment, "privat": collectPrivat]
-            refDoc = db?.collection("collect").addDocument(data: postData) { (error) in
+            let postData: [String: Any?] = ["organizer": User.currentUser.name, "title": collectTitle, "type": collectType, "date": collectDate, "streetNumber": collectStreetNumber, "streetName": collectStreetName, "zipcode": collectZipcode, "city": collectCity, "comment": collectComment, "privacy": collectPrivat]
+            refDoc = db?.collection("quest").addDocument(data: postData) { (error) in
                 if let error = error {
                     print("unable to add document to Firestore + \(error)")
+                    Toast.show(message: "Sorry error with database, your quest hasn't been registered", controller: self)
                 }
                 else {
                     print("Document has been added to Firestore + \(self.refDoc?.documentID)")
+                    self.performSegue(withIdentifier: "goToTabBarController", sender: nil)
                 }
             }
         }
